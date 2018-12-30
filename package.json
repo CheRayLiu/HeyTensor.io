@@ -1,0 +1,23 @@
+{
+  "name": "heytensor.io",
+  "version": "1.0.0",
+  "description": "Chat app with Tensorflow Model",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CheRayLiu/HeyTensor.io.git"
+  },
+  "author": "Ray Liu",
+  "license": "ISC",
+  "dependencies": {
+    "socket.io": "*",
+    "express": "*"
+  },
+  "bugs": {
+    "url": "https://github.com/CheRayLiu/HeyTensor.io/issues"
+  },
+  "homepage": "https://github.com/CheRayLiu/HeyTensor.io#readme"
+}
