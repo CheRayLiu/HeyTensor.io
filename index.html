@@ -14,10 +14,13 @@
 
         #chatWindow{
             height:300px;
+            width: 400px;
         }
 
         #mainWrapper{
             display:none;
+            position: relative;
+            width: 650px;
         }
         
         #chatWrapper{
@@ -26,6 +29,9 @@
             border-radius: 10px;
             background:#f4f4f4;
             padding:10px;
+            position: absolute;
+            left: 0;
+            overflow-y: scroll;
         }
 
         #userWrapper{
@@ -37,8 +43,14 @@
             margin-left:20px;
             width:150px;
             max-height:200px;
+            position: absolute;
+            right: 0;
         }
 
+        #messageForm{
+            position: absolute;
+            top: 380px;
+        }
         #namesWrapper{
             float:left;
             border: 1px #ccc solid;
@@ -53,6 +65,7 @@
             border:solid 1px #ccc;
         }
     </style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
     <div id  = "container">
@@ -69,11 +82,11 @@
             <h2>HeyTensorIO</h2>
             <div id="chatWrapper">
                 <div id="chatWindow"></div>
-                <form id="messageForm">
-                    <input type="text" size="35" id = "message" placeholder="Say Something...">                
-                    <input type="submit" value="Submit">
-                </form>
             </div>
+            <form id="messageForm">
+                <input type="text" size="35" id = "message" placeholder="Say Something...">                
+                <input type="submit" value="Submit">
+            </form>
             <div id="userWrapper">
                     <div id="users"></div>
             </div>
@@ -93,7 +106,7 @@
             var $username = $('#username');
             var $error = $('#error');
 
-
+            
             $usernameForm.submit(function(e){
                 e.preventDefault();
                 socket.emit('new user', $username.val(), function(data){
@@ -119,6 +132,7 @@
                 console.log('Submitted');
                 socket.emit('send message', $message.val());
                 $message.val('')
+                
             });
 
             socket.on('new message', function(data){

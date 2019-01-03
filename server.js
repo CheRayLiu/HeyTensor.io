@@ -18,10 +18,12 @@ io.sockets.on('connection', function(socket){
         if (usernames.indexOf(data) != -1){
             callback(false);
         }else{
-            callback(true);
-            socket.username = data;
-            usernames.push(socket.username);
-            updateUsernames();
+            if (data!=""){
+                callback(true);
+                socket.username = data;
+                usernames.push(socket.username);
+                updateUsernames();
+            }
         }
     });
 
@@ -31,7 +33,9 @@ io.sockets.on('connection', function(socket){
     }
     //Send Message
     socket.on('send message', function(data){
-        io.sockets.emit('new message', {msg: data,user: socket.username});
+        if (data!=""){
+            io.sockets.emit('new message', {msg: data,user: socket.username});
+        }
     });
 
     //Disconnect
