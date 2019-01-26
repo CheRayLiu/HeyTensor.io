@@ -10,7 +10,6 @@ console.log("Server Running..");
 app.get("/", function(req,res){
     res.sendFile(__dirname + '/index.html');
 });
-
 io.sockets.on('connection', function(socket){
     console.log('Socket Connected');
 
@@ -35,6 +34,7 @@ io.sockets.on('connection', function(socket){
     socket.on('send message', function(data){
         if (data!=""){
             io.sockets.emit('new message', {msg: data,user: socket.username});
+            call_chatbot(data);
         }
     });
 
@@ -47,4 +47,16 @@ io.sockets.on('connection', function(socket){
         io.sockets.emit('dis msg', socket.username)
         updateUsernames();
     });
+    //Calling chatbot
+
+    function call_chatbot(req){
+        var spawn =  require("child_process").spawn;
+        var process = spawn('python3',["chat_bot.py",
+    req //Input message
+        ]);
+        process.stdout.on("data", data => {
+            io.sockets.emit('new message', {msg: data,user: 'Tensor'});
+          });
+        
+    }
 });
